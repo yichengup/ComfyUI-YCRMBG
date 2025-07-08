@@ -141,6 +141,34 @@ MODEL_CONFIG = {
         "default_res": 2048,
         "max_res": 2560,
         "min_res": 1024
+    },
+    "BiRefNet_dynamic": {
+        "repo_id": "1038lab/BiRefNet_dynamic",
+        "files": {
+            "birefnet.py": "birefnet.py",
+            "BiRefNet_config.py": "BiRefNet_config.py",
+            "model.safetensors": "model.safetensors",
+            "config.json": "config.json"
+        },
+        "cache_dir": "BiRefNet_dynamic",
+        "description": "Dynamic model for high-resolution dichotomous image segmentation",
+        "default_res": 1024,
+        "max_res": 2048,
+        "min_res": 512
+    },
+    "BiRefNet_lite-matting": {
+        "repo_id": "1038lab/BiRefNet_lite-matting",
+        "files": {
+            "birefnet_lite.py": "birefnet_lite.py",
+            "BiRefNet_config.py": "BiRefNet_config.py",
+            "model.safetensors": "model.safetensors",
+            "config.json": "config.json"
+        },
+        "cache_dir": "BiRefNet_lite-matting",
+        "description": "Lightweight matting model for general purpose",
+        "default_res": 1024,
+        "max_res": 2048,
+        "min_res": 512
     }
 }
 
