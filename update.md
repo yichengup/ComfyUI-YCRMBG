@@ -1,5 +1,5 @@
 # ComfyUI-RMBG Update Log
-##V2.5.1 (2005/07/07)
+## V2.5.1 (2005/07/07)
 - Fixed the missing BiRefNet Models
 
 ## V2.5.0 (2005/07/01)
