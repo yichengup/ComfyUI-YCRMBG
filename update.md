@@ -1,4 +1,7 @@
 # ComfyUI-RMBG Update Log
+##V2.5.1 (2005/07/01)
+- Fixed the missing BiRefNet Models
+
 ## V2.5.0 (2005/07/01)
 - Introduced the `MaskOverlay` node, enabling mask overlays directly on images.
 ![mask_overlay](https://github.com/user-attachments/assets/d82abb5a-9702-4d21-a5cf-e6776c7b4c06)
