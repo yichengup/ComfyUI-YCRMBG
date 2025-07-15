@@ -215,7 +215,7 @@
         "widget_ue_connectable": {}
       },
       "widgets_values": [
-        101,
+        100,
         "fixed",
         25,
         1,
@@ -443,7 +443,7 @@
         "widget_ue_connectable": {}
       },
       "widgets_values": [
-        101,
+        100,
         "fixed",
         25,
         1,
@@ -651,7 +651,9 @@
         "Node name for S&R": "ReferenceLatent",
         "widget_ue_connectable": {}
       },
-      "widgets_values": []
+      "widgets_values": [],
+      "color": "#223",
+      "bgcolor": "#335"
     },
     {
       "id": 43,
@@ -769,7 +771,9 @@
         5,
         5,
         10
-      ]
+      ],
+      "color": "#223",
+      "bgcolor": "#335"
     },
     {
       "id": 57,
@@ -973,8 +977,8 @@
       "id": 62,
       "type": "UNETLoader",
       "pos": [
-        -740,
-        -350
+        -730,
+        -320
       ],
       "size": [
         270,
@@ -1003,8 +1007,8 @@
         "secondTabWidth": 65,
         "cnr_id": "comfy-core",
         "ver": "0.3.44",
-        "widget_ue_connectable": {},
-        "Node name for S&R": "UNETLoader"
+        "Node name for S&R": "UNETLoader",
+        "widget_ue_connectable": {}
       },
       "widgets_values": [
         "flux1-dev-kontext_fp8_scaled.safetensors",
@@ -1015,8 +1019,8 @@
       "id": 63,
       "type": "DualCLIPLoader",
       "pos": [
-        -740,
-        -230
+        -730,
+        -200
       ],
       "size": [
         270,
@@ -1045,8 +1049,8 @@
         "secondTabWidth": 65,
         "cnr_id": "comfy-core",
         "ver": "0.3.44",
-        "widget_ue_connectable": {},
-        "Node name for S&R": "DualCLIPLoader"
+        "Node name for S&R": "DualCLIPLoader",
+        "widget_ue_connectable": {}
       },
       "widgets_values": [
         "flux_t5xxl_fp8_e4m3fn.safetensors",
@@ -1059,8 +1063,8 @@
       "id": 65,
       "type": "VAELoader",
       "pos": [
-        -740,
-        -60
+        -730,
+        -30
       ],
       "size": [
         270,
@@ -1089,8 +1093,8 @@
         "secondTabWidth": 65,
         "cnr_id": "comfy-core",
         "ver": "0.3.44",
-        "widget_ue_connectable": {},
-        "Node name for S&R": "VAELoader"
+        "Node name for S&R": "VAELoader",
+        "widget_ue_connectable": {}
       },
       "widgets_values": [
         "ae.safetensors"
@@ -1100,8 +1104,8 @@
       "id": 66,
       "type": "Anything Everywhere3",
       "pos": [
-        -420,
-        -250
+        -410,
+        -220
       ],
       "size": [
         179.97518920898438,
@@ -1147,10 +1151,10 @@
         "secondTabWidth": 65,
         "cnr_id": "cg-use-everywhere",
         "ver": "5e7a8cd9bb2860e8bfb2559088d43be52090e0e8",
-        "widget_ue_connectable": {},
         "Node name for S&R": "Anything Everywhere3",
         "group_restricted": 0,
-        "color_restricted": 0
+        "color_restricted": 0,
+        "widget_ue_connectable": {}
       },
       "widgets_values": []
     }
@@ -1404,8 +1408,8 @@
       "id": 4,
       "title": "Kontext",
       "bounding": [
-        -750,
-        -420,
+        -740,
+        -390,
         519.9752197265625,
         431.6000061035156
       ],
@@ -1417,10 +1421,10 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.24761631176180995,
+      "scale": 0.24761631176181034,
       "offset": [
-        1710,
-        880
+        2133.3422488815177,
+        978.1256868268417
       ]
     },
     "frontendVersion": "1.23.4",
