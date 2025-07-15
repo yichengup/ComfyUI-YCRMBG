@@ -4,14 +4,14 @@
 - Added the first RMBG inpainting tool for the Flux Kontext model: the `ReferenceLatentMask` node, which leverages a reference latent and mask for precise region conditioning. (Stay tuned, more tools will be released in future updates.)
 - Updated RMBG `LoadImage` node: added an upscaling method for improved output quality, refined image output to RGB format, and optimized the alpha channel in the mask output..
 
-## V2.5.2 (2005/07/11)
+## V2.5.2 (2025/07/11)
 - Model repository Bug Fix
 ![V 2 5 2](https://github.com/user-attachments/assets/4b41887a-0d8a-4a5a-9128-1e866f410b60)
 
 ## V2.5.1 (2005/07/07)
 - Fixed the missing BiRefNet Models
 
-## V2.5.0 (2005/07/01)
+## V2.5.0 (2025/07/01)
 - Introduced the `MaskOverlay` node, enabling mask overlays directly on images.
 ![mask_overlay](https://github.com/user-attachments/assets/d82abb5a-9702-4d21-a5cf-e6776c7b4c06)
 - Added `ImageMaskResize` node for resizing image and mask with various options.
