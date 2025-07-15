@@ -1,8 +1,11 @@
 # ComfyUI-RMBG Update Log
 ## V2.6.0 (2025/07/15)
-![ReferenceLatantMaskrlay](https://github.com/user-attachments/assets/8eba03be-d139-4694-9ec4-7d99bace4a20)
+![ReferenceLatentMaskr](https://github.com/user-attachments/assets/8eba03be-d139-4694-9ec4-7d99bace4a20)
+
 - Added the first RMBG inpainting tool for the Flux Kontext model: the `ReferenceLatentMask` node, which leverages a reference latent and mask for precise region conditioning. (Stay tuned, more tools will be released in future updates.)
 - Updated RMBG `LoadImage` node: added an upscaling method for improved output quality, refined image output to RGB format, and optimized the alpha channel in the mask output..
+
+![ReferenceLatentMaskr2](https://github.com/user-attachments/assets/125925ca-c1c6-496e-8b6b-9c5bcd07749e)
 
 ## V2.5.2 (2025/07/11)
 - Model repository Bug Fix
