@@ -4,8 +4,8 @@ A ComfyUI custom node designed for advanced image background removal and object,
 
 ## News & Updates
 - **2025/07/15**: Update ComfyUI-RMBG to **v2.6.0** ( [update.md](https://github.com/1038lab/ComfyUI-RMBG/blob/main/update.md#v260-20250715) )
-![ReferenceLatantMaskrlay](https://github.com/user-attachments/assets/8eba03be-d139-4694-9ec4-7d99bace4a20)
-  - Added `Kontext Refence latant Mask` node, Which uses a reference latent and mask for precise region conditioning.
+![ReferenceLatentMaskr](https://github.com/user-attachments/assets/8eba03be-d139-4694-9ec4-7d99bace4a20)
+  - Added `Kontext Refence latent Mask` node, Which uses a reference latent and mask for precise region conditioning.
 
 - **2025/07/11**: Update ComfyUI-RMBG to **v2.5.2** ( [update.md](https://github.com/1038lab/ComfyUI-RMBG/blob/main/update.md#v252-20250711) )
 ![V 2 5 2](https://github.com/user-attachments/assets/4b41887a-0d8a-4a5a-9128-1e866f410b60)
