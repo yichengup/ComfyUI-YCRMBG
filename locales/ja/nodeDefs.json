@@ -415,5 +415,21 @@
       "2": { "name": "幅" },
       "3": { "name": "高さ" }
     }
+  },
+  "AILab_ReferenceLatentMask": {
+    "display_name": "Kontext 参考潜伏マスク (RMBG) 🎭",
+    "inputs": {
+      "conditioning": { "name": "条件" },
+      "latent": { "name": "潜伏" },
+      "mask": { "name": "マスク" },
+      "expand": { "name": "拡張" },
+      "blur": { "name": "ぼかし" },
+      "mask_only": { "name": "マスクのみ" }
+    },
+    "outputs": {
+      "0": { "name": "条件" },
+      "1": { "name": "潜伏" },
+      "2": { "name": "マスク" }
+    }
   }
 }

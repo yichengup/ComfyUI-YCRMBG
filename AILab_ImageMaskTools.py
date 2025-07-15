@@ -1,4 +1,4 @@
-# ComfyUI-RMBG v2.5.0
+# ComfyUI-RMBG v2.6.0
 #
 # This node facilitates background removal using various models, including RMBG-2.0, INSPYRENET, BEN, BEN2, and BIREFNET-HR.
 # It utilizes advanced deep learning techniques to process images and generate accurate masks for background removal.
@@ -31,7 +31,8 @@
 #
 # 5. Input Nodes:
 #    - ColorInput: A node for inputting colors in various formats.
-
+#
+# License: GPL-3.0
 # These nodes are crafted to streamline common image and mask operations within ComfyUI workflows.
 
 import os
@@ -587,6 +588,8 @@ class AILab_MaskCombiner:
 
 # Image loader node
 class AILab_LoadImage:
+    upscale_methods = ["nearest-exact", "bilinear", "area", "bicubic", "lanczos"]
+    
     @classmethod
     def INPUT_TYPES(cls):
         input_dir = folder_paths.get_input_directory()
@@ -596,6 +599,7 @@ class AILab_LoadImage:
             "required": {
                 "image": (sorted(files) or [""], {"image_upload": True}),
                 "mask_channel": (["alpha", "red", "green", "blue"], {"default": "alpha", "tooltip": "Select channel to extract mask from"}),
+                "upscale_method": (cls.upscale_methods, {"default": "lanczos", "tooltip": "Method used for resizing the image"}),
                 "scale_by": ("FLOAT", {"default": 1.0, "min": 0.01, "max": 8.0, "step": 0.01, "tooltip": "Scale image by this factor (ignored if size > 0)"}),
                 "resize_mode": (["longest_side", "shortest_side", "width", "height"], {"default": "longest_side", "tooltip": "Choose how to resize the image"}),
                 "size": ("INT", {"default": 0, "min": 0, "max": MAX_RESOLUTION, "step": 1, "tooltip": "Target size for the selected resize mode (0 = keep original size)"}),
@@ -611,14 +615,28 @@ class AILab_LoadImage:
     FUNCTION = "load_image"
     OUTPUT_NODE = False
 
-    def load_image(self, image, mask_channel="alpha", scale_by=1.0, resize_mode="longest_side", size=0, extra_pnginfo=None):
+    def load_image(self, image, mask_channel="alpha", upscale_method="lanczos", scale_by=1.0, resize_mode="longest_side", size=0, extra_pnginfo=None):
         try:
             image_path = folder_paths.get_annotated_filepath(image)
             img = Image.open(image_path)
             
             orig_width, orig_height = img.size
             
-            # Image resizing logic
+            resampling_map = {
+                "nearest-exact": Image.NEAREST,
+                "bilinear": Image.BILINEAR,
+                "area": Image.BOX,
+                "bicubic": Image.BICUBIC,
+                "lanczos": Image.LANCZOS
+            }
+            resampling = resampling_map.get(upscale_method, Image.LANCZOS)
+            
+            has_alpha = 'A' in img.getbands()
+            if has_alpha and mask_channel == "alpha":
+                original_alpha = img.getchannel('A')
+            
+            img_rgb = img.convert('RGB')
+            
             if size > 0:
                 if resize_mode == "longest_side":
                     if orig_width >= orig_height:
@@ -627,7 +645,7 @@ class AILab_LoadImage:
                     else:
                         new_height = size
                         new_width = int(orig_width * (size / orig_height))
-                    img = img.resize((new_width, new_height), Image.LANCZOS)
+                    img_rgb = img_rgb.resize((new_width, new_height), resampling)
                 elif resize_mode == "shortest_side":
                     if orig_width <= orig_height:
                         new_width = size
@@ -635,49 +653,58 @@ class AILab_LoadImage:
                     else:
                         new_height = size
                         new_width = int(orig_width * (size / orig_height))
-                    img = img.resize((new_width, new_height), Image.LANCZOS)
+                    img_rgb = img_rgb.resize((new_width, new_height), resampling)
                 elif resize_mode == "width":
                     new_width = size
                     new_height = int(orig_height * (size / orig_width))
-                    img = img.resize((new_width, new_height), Image.LANCZOS)
+                    img_rgb = img_rgb.resize((new_width, new_height), resampling)
                 elif resize_mode == "height":
                     new_height = size
                     new_width = int(orig_width * (size / orig_height))
-                    img = img.resize((new_width, new_height), Image.LANCZOS)
+                    img_rgb = img_rgb.resize((new_width, new_height), resampling)
             elif scale_by != 1.0:
                 new_width = int(orig_width * scale_by)
                 new_height = int(orig_height * scale_by)
-                img = img.resize((new_width, new_height), Image.LANCZOS)
+                img_rgb = img_rgb.resize((new_width, new_height), resampling)
             
-            width, height = img.size
+            width, height = img_rgb.size
+            
+            mask = None
+            if mask_channel == "alpha" and has_alpha:
+                if (size > 0 or scale_by != 1.0) and 'original_alpha' in locals():
+                    mask_img = original_alpha.resize((width, height), resampling)
+                    mask = np.array(mask_img).astype(np.float32) / 255.0
+                    mask = 1. - torch.from_numpy(mask)
             
             output_images = []
             output_masks = []
-            for i in ImageSequence.Iterator(img):
+            
+            for i in ImageSequence.Iterator(img_rgb):
                 i = ImageOps.exif_transpose(i)
                 if i.mode == 'I':
                     i = i.point(lambda i: i * (1 / 255))
-                image = i.convert("RGB")
-                image = np.array(image).astype(np.float32) / 255.0
+                
+                if i.mode != 'RGB':
+                    i = i.convert('RGB')
+                
+                image = np.array(i).astype(np.float32) / 255.0
                 image = torch.from_numpy(image)[None,]
                 
-                if mask_channel == "alpha" and 'A' in i.getbands():
-                    mask = np.array(i.getchannel('A')).astype(np.float32) / 255.0
-                    mask = 1. - torch.from_numpy(mask)
+                if mask is not None:
+                    output_masks.append(mask.unsqueeze(0))
                 elif mask_channel == "red" and 'R' in i.getbands():
                     mask = np.array(i.getchannel('R')).astype(np.float32) / 255.0
-                    mask = torch.from_numpy(mask)
+                    output_masks.append(torch.from_numpy(mask).unsqueeze(0))
                 elif mask_channel == "green" and 'G' in i.getbands():
                     mask = np.array(i.getchannel('G')).astype(np.float32) / 255.0
-                    mask = torch.from_numpy(mask)
+                    output_masks.append(torch.from_numpy(mask).unsqueeze(0))
                 elif mask_channel == "blue" and 'B' in i.getbands():
                     mask = np.array(i.getchannel('B')).astype(np.float32) / 255.0
-                    mask = torch.from_numpy(mask)
+                    output_masks.append(torch.from_numpy(mask).unsqueeze(0))
                 else:
-                    mask = torch.ones((height, width), dtype=torch.float32, device="cpu")
+                    output_masks.append(torch.ones((1, height, width), dtype=torch.float32, device="cpu"))
                 
                 output_images.append(image)
-                output_masks.append(mask.unsqueeze(0))
             
             if len(output_images) > 1:
                 output_image = torch.cat(output_images, dim=0)
@@ -700,7 +727,7 @@ class AILab_LoadImage:
             return (empty_image, empty_mask, empty_mask_image, 64, 64)
     
     @classmethod
-    def IS_CHANGED(cls, image, mask_channel="alpha", scale_by=1.0, resize_mode="longest_side", size=0, extra_pnginfo=None):
+    def IS_CHANGED(cls, image, mask_channel="alpha", upscale_method="lanczos", scale_by=1.0, resize_mode="longest_side", size=0, extra_pnginfo=None):
         image_path = folder_paths.get_annotated_filepath(image)
         m = hashlib.sha256()
         with open(image_path, 'rb') as f:
@@ -708,7 +735,7 @@ class AILab_LoadImage:
         return m.digest().hex()
     
     @classmethod
-    def VALIDATE_INPUTS(cls, image, mask_channel="alpha", scale_by=1.0, resize_mode="longest_side", size=0, extra_pnginfo=None):
+    def VALIDATE_INPUTS(cls, image, mask_channel="alpha", upscale_method="lanczos", scale_by=1.0, resize_mode="longest_side", size=0, extra_pnginfo=None):
         if not folder_paths.exists_annotated_filepath(image):
             return f"Invalid image file: {image}"
         

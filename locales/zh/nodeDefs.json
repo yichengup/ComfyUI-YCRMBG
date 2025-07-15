@@ -415,5 +415,21 @@
      "2": { "name": "宽度" },
      "3": { "name": "高度" }
    }
+ },
+ "AILab_ReferenceLatentMask": {
+   "display_name": "Kontext 参考潜伏遮罩 (RMBG) 🎭",
+   "inputs": {
+     "conditioning": { "name": "条件" },
+     "latent": { "name": "latant" },
+     "mask": { "name": "遮罩" },
+     "expand": { "name": "扩展" },
+     "blur": { "name": "模糊" },
+     "mask_only": { "name": "仅遮罩" }
+   },
+   "outputs": {
+     "0": { "name": "条件" },
+     "1": { "name": "latant" },
+     "2": { "name": "遮罩" }
+   }
  }
 }

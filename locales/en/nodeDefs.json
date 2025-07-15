@@ -416,5 +416,21 @@
       "2": { "name": "WIDTH" },
       "3": { "name": "HEIGHT" }
     }
+  },
+  "AILab_ReferenceLatentMask": {
+    "display_name": "Kontext Reference Latent Mask (RMBG) 🎭",
+    "inputs": {
+      "conditioning": { "name": "Conditioning" },
+      "latent": { "name": "Latent" },
+      "mask": { "name": "Mask" },
+      "expand": { "name": "Expand" },
+      "blur": { "name": "Blur" },
+      "mask_only": { "name": "Mask Only" }
+    },
+    "outputs": {
+      "0": { "name": "CONDITIONING" },
+      "1": { "name": "LATENT" },
+      "2": { "name": "MASK" }
+    }
   }
 } 

@@ -415,5 +415,21 @@
       "2": { "name": "너비" },
       "3": { "name": "높이" }
     }
+  },
+  "AILab_ReferenceLatentMask": {
+    "display_name": "Kontext 참조 잠재 마스크 (RMBG) 🎭",
+    "inputs": {
+      "conditioning": { "name": "조건" },
+      "latent": { "name": "잠재" },
+      "mask": { "name": "마스크" },
+      "expand": { "name": "확장" },
+      "blur": { "name": "블러" },
+      "mask_only": { "name": "마스크 전용" }
+    },
+    "outputs": {
+      "0": { "name": "조건" },
+      "1": { "name": "잠재" },
+      "2": { "name": "마스크" }
+    }
   }
 } 
