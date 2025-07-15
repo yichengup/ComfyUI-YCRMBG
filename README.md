@@ -3,13 +3,15 @@
 A ComfyUI custom node designed for advanced image background removal and object, face, clothes, and fashion segmentation, utilizing multiple models including RMBG-2.0, INSPYRENET, BEN, BEN2, BiRefNet-HR, SAM, and GroundingDINO.
 
 ## News & Updates
+- **2025/07/15**: Update ComfyUI-RMBG to **v2.6.0** ( [update.md](https://github.com/1038lab/ComfyUI-RMBG/blob/main/update.md#v260-20250715) )
+![ReferenceLatantMaskrlay](https://github.com/user-attachments/assets/8eba03be-d139-4694-9ec4-7d99bace4a20)
+  - Added `Kontext Refence latant Mask` node, Which uses a reference latent and mask for precise region conditioning.
+
 - **2025/07/11**: Update ComfyUI-RMBG to **v2.5.2** ( [update.md](https://github.com/1038lab/ComfyUI-RMBG/blob/main/update.md#v252-20250711) )
-  
 ![V 2 5 2](https://github.com/user-attachments/assets/4b41887a-0d8a-4a5a-9128-1e866f410b60)
 
 - **2025/07/07**: Update ComfyUI-RMBG to **v2.5.1** ( [update.md](https://github.com/1038lab/ComfyUI-RMBG/blob/main/update.md#v251-20250707) )
 - **2025/07/01**: Update ComfyUI-RMBG to **v2.5.0** ( [update.md](https://github.com/1038lab/ComfyUI-RMBG/blob/main/update.md#v250-20250701) )
-
 ![mask_overlay](https://github.com/user-attachments/assets/d82abb5a-9702-4d21-a5cf-e6776c7b4c06)
 
   - Added `MaskOverlay`, `ObjectRemover`, `ImageMaskResize` new nodes.
