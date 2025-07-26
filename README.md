@@ -2,6 +2,8 @@
 
 A ComfyUI custom node designed for advanced image background removal and object, face, clothes, and fashion segmentation, utilizing multiple models including RMBG-2.0, INSPYRENET, BEN, BEN2, BiRefNet-HR, SAM, and GroundingDINO.
 
+## 有别于原插件，AILab_FaceSegment.py--面部抠图，设置了模型自动下载
+
 ## News & Updates
 - **2025/07/15**: Update ComfyUI-RMBG to **v2.6.0** ( [update.md](https://github.com/1038lab/ComfyUI-RMBG/blob/main/update.md#v260-20250715) )
 
